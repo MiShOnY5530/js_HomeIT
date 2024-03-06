@@ -1,8 +1,9 @@
-function sendRequest (){
-  return fetch('https://jsonplaceholder.typicode.com/users')
-  .then(response => response.json())
-  .then(json => console.log(json));
+function sendRequest() {
+  return fetch('https://jsonplaceholder.typicode.com/todos/10')
+    .then(response => response.json())
+    .then(json => console.log(json));
 }
+
 
 // 1 
 let name = prompt("Будь ласка, введіть ваше ім'я");

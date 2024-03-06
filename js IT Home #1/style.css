@@ -15,7 +15,7 @@
     text-align: center;
     flex: 1;
     box-shadow: 0px 0px 7px 2px grey;
-    font-family: "Kode Mono", monospace;
+    font-family: "Anta", sans-serif;
 }
 
 @media (max-width: 768px) {
@@ -43,10 +43,6 @@
 
 .btn {
     width: 50%;
-}
-
-h5 {
-    text-align: center;
 }
 
 .ENTERPRISE {
@@ -82,4 +78,8 @@ h5 {
     border-top: 3px solid #ddd;
     margin-bottom: 20px;
     border-color: #198655;
+}
+
+.text-center {
+    font-family: "Anta", sans-serif;  
 }
