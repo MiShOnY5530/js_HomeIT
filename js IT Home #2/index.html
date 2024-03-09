@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Marmelad&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <title> IT Home#2 JS</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -13,14 +13,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="plans">
-    <button onclick="checkNumber()" class="btn btn-outline-danger">#1</button>
-    <button onclick="isLeapYear(2024)" class="btn btn-outline-primary">#2</button>
-    <button onclick="checkDivisibility()" class="btn btn-outline-success">#4</button>
-    <button onclick="calculateOperations()" class="btn btn-outline-secondary">#5</button>
-</div>
-</div>
-  </div>  
+  <div class="plans">
+    <div class="column"><h6>Задачі на <span class="badge rounded-pill bg-danger text-white">if</span> i <span class="badge rounded-pill bg-primary text-white">else</span>:</h6>
+      <button onclick="checkNumber()" class="btn btn-outline-danger"># 1</button>
+      <button onclick="isLeapYear(2024)" class="btn btn-outline-primary"># 2</button>
+    </div>
+      <div class="column"><h6>Задачі на оператори логічного типу <span class="badge rounded-pill bg-dark text-white">&&</span> та <span class="badge rounded-pill bg-success text-white">||</span>:</h6>  
+      <button id="checkButton" class="btn btn-outline-dark"># 3</button>
+      <button onclick="checkDivisibility()" class="btn btn-outline-success"># 4</button>
+    </div>
+    <div class="column"><h6>Завдання на математичну дію:</h6>  
+      <button onclick="calculateOperations()" class="btn btn-outline-secondary"># 5</button>
+    </div>
+  </div>   
 </body>
 <script src="script.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

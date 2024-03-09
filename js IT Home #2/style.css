@@ -4,5 +4,11 @@
     margin-left: 200px;
     margin-right: 200px;
     margin-top: 40px;
-    font-family: "Anta", sans-serif;
+    font-family: "Marmelad", sans-serif;
 }
+
+  .column {
+    margin-top: 30px;
+    text-align: center;
+  }
+  

@@ -1,10 +1,3 @@
-function sendRequest() {
-  return fetch('https://jsonplaceholder.typicode.com/todos/10')
-    .then(response => response.json())
-    .then(json => console.log(json));
-}
-
-
 // 1 
 function checkNumber() {
   let isCompleted = false;
@@ -29,12 +22,9 @@ function checkNumber() {
   }
 
   if (!isCompleted) {
-    // Додаткова перевірка, якщо користувач ввів не число
     alert("Введіть дійсне число!");
   }
 }
-
-
 
 // 2
 function isLeapYear(year) {
@@ -64,11 +54,11 @@ button.addEventListener('click', () => {
 
 //5
 function calculateOperations() {
-  const firstNumber = parseFloat(prompt("Введите первое число:"));
-  const secondNumber = parseFloat(prompt("Введите второе число:"));
+  const firstNumber = parseFloat(prompt("Введіть перше число:"));
+  const secondNumber = parseFloat(prompt("Введіть друге число:"));
 
   if (isNaN(firstNumber) || isNaN(secondNumber)) {
-      alert("Пожалуйста, введите корректные числа.");
+      alert("Будь ласка, введіть коректні числа.");
       return;
   }
 
@@ -77,14 +67,11 @@ function calculateOperations() {
   const product = firstNumber * secondNumber;
   const division = firstNumber / secondNumber;
 
-  console.log(`Сумма чисел: ${sum}`);
-  console.log(`Разница между числами: ${difference}`);
-  console.log(`Произведение чисел: ${product}`);
-  console.log(`Результат деления: ${division}`);
+  console.log(`Сума чисел: ${sum}`);
+  console.log(`Різниця між числами: ${difference}`);
+  console.log(`Добуток чисел: ${product}`);
+  console.log(`Результат ділення: ${division}`);
 }
-
-// Для отображения результатов только при нажатии на кнопку
-document.querySelector(".btn").addEventListener("click", calculateOperations);
 
 
 //4
@@ -97,16 +84,16 @@ function checkDivisibility() {
   }
 }
 
+//3
+function checkEvenAndPositive(number) {
+  if (number > 0 && number % 2 === 0) {
+      console.log("Число парне і позитивне.");
+  } else {
+      console.log("Число не відповідає умовам.");
+  }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+document.getElementById("checkButton").addEventListener("click", function() {
+const userInput = parseFloat(prompt("Введіть число:"));
+checkEvenAndPositive(userInput);
+});
