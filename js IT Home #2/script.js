@@ -7,18 +7,33 @@ function sendRequest() {
 
 // 1 
 function checkNumber() {
+  let isCompleted = false;
+
   const userInput = parseFloat(prompt("Введіть число:"));
-  if (userInput > 0) {
+
+  switch (true) {
+    case userInput > 0:
       alert("Число позитивне");
       console.log("число позитивне");
-  } else if (userInput < 0) {
+      isCompleted = true;
+      break;
+    case userInput < 0:
       alert("Число від'ємне");
       console.log("число від'ємне");
-  } else {
+      isCompleted = true;
+      break;
+    default:
       alert("Число дорівнює нулю");
       console.log("число дорівнює нулю");
+      isCompleted = true;
+  }
+
+  if (!isCompleted) {
+    // Додаткова перевірка, якщо користувач ввів не число
+    alert("Введіть дійсне число!");
   }
 }
+
 
 
 // 2
@@ -46,6 +61,41 @@ button.addEventListener('click', () => {
   }
 });
 
+
+//5
+function calculateOperations() {
+  const firstNumber = parseFloat(prompt("Введите первое число:"));
+  const secondNumber = parseFloat(prompt("Введите второе число:"));
+
+  if (isNaN(firstNumber) || isNaN(secondNumber)) {
+      alert("Пожалуйста, введите корректные числа.");
+      return;
+  }
+
+  const sum = firstNumber + secondNumber;
+  const difference = firstNumber - secondNumber;
+  const product = firstNumber * secondNumber;
+  const division = firstNumber / secondNumber;
+
+  console.log(`Сумма чисел: ${sum}`);
+  console.log(`Разница между числами: ${difference}`);
+  console.log(`Произведение чисел: ${product}`);
+  console.log(`Результат деления: ${division}`);
+}
+
+// Для отображения результатов только при нажатии на кнопку
+document.querySelector(".btn").addEventListener("click", calculateOperations);
+
+
+//4
+function checkDivisibility() {
+  const number = parseFloat(prompt("Введіть число:"));
+  if (number % 3 === 0 || number % 5 === 0) {
+    console.log("Число кратне 3 або 5");
+  } else {
+    console.log("Число не є кратним 3 або 5");
+  }
+}
 
 
 
