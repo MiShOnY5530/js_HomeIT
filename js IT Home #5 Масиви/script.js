@@ -1,16 +1,25 @@
 function modifyArray(arr) {
-  // Перевіряю, чи є в масиві елемент типу 'number'
-  const hasNumber = arr.some(element => typeof element === 'number');
+  let hasNumber = false;
+  for (let i = 0; i < arr.length; i++) {
+    if (typeof arr[i] === 'number') {
+      hasNumber = true;
+      break;
+    }
+  }
 
   if (hasNumber) {
-    // Якщо є, видаляю перший знайдений елемент типу 'number'
-    return arr.filter(element => typeof element !== 'number');
+    let newArr = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (typeof arr[i] !== 'number') {
+        newArr.push(arr[i]);
+      }
+    }
+    return newArr;
   } else {
-    // Якщо немає, додаю число до кінця масиву
-    arr.push(0); // Додаю 0, але можна додати будь-яке число
+    arr.push(0);
     return arr;
   }
 }
 
-console.log(modifyArray([1, 2, 3, "43", "Miau"]));     // Видалить числа: ["43", "Miau"]
-console.log(modifyArray([1, 2, 3, 4, 5, 6, 'boolean'])); // Видалить числа: ["boolean"]
+console.log(modifyArray([1, 2, 3, "43", "Miau"]));
+console.log(modifyArray([1, 2, 3, 4, 5, 6, 'boolean']));
