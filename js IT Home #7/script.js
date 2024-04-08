@@ -54,7 +54,7 @@ console.log(isPalindrome('радар'));
 console.log(isPalindrome('комп’ютер'));
 
 
-//7.1 через цикли
+//7.1 через цикли без методів
 function isPalindrome(word) {
     let reversedWord = "";
     for (let i = word.length - 1; i >= 0; i--) {
