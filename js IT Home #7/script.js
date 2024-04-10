@@ -63,8 +63,7 @@ function isPalindrome(word) {
     return word === reversedWord;
   }
   
-  console.log(isPalindrome("радар"));
-  console.log(isPalindrome("комп'ютер"));
+  console.log(isPalindrome("мам мам"));
 
 
 // 8
