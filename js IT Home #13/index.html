@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ua">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="style.css">
+	<title> IT Home#13</title>
+</head>
+
+<body>
+	<div class="oneContainer">
+		<h2>#1 Реалізувати сторінку із блоком вкладок</h2>
+		<div class="tabs"> <a href="#tab1" class="tab-link active">Mango</a> <a href="#tab2" class="tab-link">Orange</a> <a href="#tab3" class="tab-link">Pineapple</a> <a href="#tab4" class="tab-link">Papaya</a> <a href="#tab5" class="tab-link">Grapefruit</a> <a href="#tab6" class="tab-link">Pear</a> </div>
+		<div class="tab-content" id="tab1">
+			<div class="container"> <img src="img/mango.png" alt="">
+				<div class="gridCss">
+					<h1>Mango</h1>
+					<p>Mangoes are the fruits of the Indian mango (Mangifera indica), a plant of the genus Mango in the family Sumacaceae. The fruits have a fibrous structure and sweet taste, the peel is colored red, green or yellow, the flesh is yellow or orange.</p>
+				</div>
+			</div>
+		</div>
+		<div class="tab-content" id="tab2" style="display: none;">
+			<div class="container"> <img src="img/orange.png">
+				<div class="gridCss">
+					<h1>Orange</h1>
+					<p>Orange is the fruit of the orange tree. It is a heperidium, a multi-nested berry. It is covered with a rough orange peel (zest). The seeds are embedded in the pulp of the nests. The size, shape, and color of the peel can vary greatly depending on the variety of plant. Oranges are eaten fresh, serve as raw material in cooking and for making juices, jams, jams, candied fruits, marmalade and other products. They contain up to 12% sugars, 0.6-2% citric acid, up to 50-65 mg ascorbic acid, thiamine, vitamin P, calcium salts, potassium, phosphorus and others. The peel contains about 2 % of essential oil.</p>
+				</div>
+			</div>
+		</div>
+		<div class="tab-content" id="tab3" style="display: none;">
+			<div class="container"> <img src="img/pineapple.png">
+				<div class="gridCss">
+					<h1>Pineapple</h1>
+					<p>The pineapple (Ananas comosus) is a tropical plant with an edible fruit; it is the most economically significant plant in the family Bromeliaceae. The pineapple is indigenous to South America, where it has been cultivated for many centuries. The introduction of the pineapple plant to Europe in the 17th century made it a significant cultural icon of luxury. Since the 1820s, pineapple has been commercially grown in greenhouses and many tropical plantations. Pineapples grow as a small shrub; the individual flowers of the unpollinated plant fuse to form a multiple fruit. The plant normally propagates from the offset produced at the top of the fruit or from a side shoot, and typically matures within a year.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-content" id="tab4" style="display: none;">
+		<div class="container"> <img src="img/papaya.png">
+			<div class="gridCss">
+				<h1>Papaya</h1>
+				<p>The papaya (/pəˈpaɪə/, US: /pəˈpɑːjə/), papaw, (/pəˈpɔː/) or pawpaw (/ˈpɔːpɔː/) is the plant species Carica papaya, one of the 21 accepted species in the genus Carica of the family Caricaceae. It was first domesticated in Mesoamerica, within modern-day southern Mexico and Central America. It is grown in several countries in regions with a tropical climate. In 2022, India produced 38% of the world's supply of papayas.</p>
+			</div>
+		</div>
+	</div>
+	<div class="tab-content" id="tab5" style="display: none;">
+		<div class="container"> <img src="img/grapefruit.png">
+			<div class="gridCss">
+				<h1>Grapefruit</h1>
+				<p>The grapefruit (Citrus × paradisi) is a subtropical citrus tree known for its relatively large, sour to semi-sweet, somewhat bitter fruit. The interior flesh is segmented and varies in color from pale yellow to dark pink/red. Grapefruit is a citrus hybrid that originated in Barbados in the 18th century. It is an accidental cross between the sweet orange (C. × sinensis) and the pomelo or shaddock (C. maxima), both of which were introduced from Asia in the 17th century. It has also been called the forbidden fruit. In the past it was referred to as the pomelo, but that term is now mostly used as the common name for Citrus maxima.</p>
+			</div>
+		</div>
+	</div>
+	<div class="tab-content" id="tab6" style="display: none;">
+		<div class="container"> <img src="img/pear.png">
+			<div class="gridCss">
+				<h1>Pear</h1>
+				<p>Pears are fruits produced and consumed around the world, growing on a tree and harvested in late summer into mid-autumn. The pear tree and shrub are a species of genus Pyrus /ˈpaɪrəs/, in the family Rosaceae, bearing the pomaceous fruit of the same name. Several species of pears are valued for their edible fruit and juices, while others are cultivated as trees. The tree is medium-sized and native to coastal and mildly temperate regions of Europe, North Africa, and Asia. Pear wood is one of the preferred materials in the manufacture of high-quality woodwind instruments and furniture. About 3,000 known varieties of pears are grown worldwide, which vary in both shape and taste. The fruit is consumed fresh, canned, as juice, dried, or fermented as perry.</p>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="oneContainer">
+		<h2 class="textTab">#2 Реалізувати сторінку з кнопкою, після натискання на яку відкривається модальне вікно</h2> <button id="openModalButton">Open Modal</button>
+		<div id="modalWindow" class="modal">
+			<div class="modal-content">
+				<h2>Hello from Modal Window!</h2> <button id="closeButton" class="close">Close</button> </div>
+		</div>
+	</div>
+	<div class="oneContainer">
+		<h2 class="textTab">#3 Реалізувати текстове поле з автозаповненням</h2>
+		<div style="display: flex; align-items: center;">
+			<p style="padding-right: 10px;">Language:</p> <input type="text" id="autocomplete" placeholder="Type in text"> </div>
+	</div>
+	<div class="oneContainer">
+		<h2 class="textTab">#4 Реалізувати елемент керування "Графік"</h2>
+        <div id="chart"></div>
+		<div id="chart2"></div>
+	</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="script.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</html>
