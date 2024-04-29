@@ -1,0 +1,8 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-image: url('img/v.png');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
