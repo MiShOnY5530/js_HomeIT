@@ -7,6 +7,14 @@ function power(base, exponent) {
     }
 }
 
+function myPower() {
+    const base = prompt("Введіть базу:");
+    const exponent = prompt("Введіть експоненту:");
+    const result = power(base, exponent);
+    alert("Результат: " + result);
+}
+
+
 // 2. Функція пошуку найбільшого спільного дільника
 function divisor(a, b) {
     if (b === 0) {
@@ -14,6 +22,13 @@ function divisor(a, b) {
     } else {
         return divisor(b, a % b);
     }
+}
+
+function myDivisor() {
+    const a = prompt("Введіть перше число:");
+    const b = prompt("Введіть друге число:");
+    const result = divisor(a, b);
+    alert("Найбільший спільний дільник: " + result);
 }
 
 // 3. Функція для пошуку максимальної цифри в числі
@@ -25,6 +40,11 @@ function maxNumber(num) {
     }
 }
 
+function myMaxNumber() {
+    const num = prompt("Введіть число:");
+    const result = maxNumber(num);
+    alert("Максимальна цифра в числі: " + result);
+}
 
 // 5. Функція для виведення всіх множників переданого числа в зростаючому порядку
 function  multipliers(num, i = 2, factors = []) {
@@ -35,11 +55,8 @@ function  multipliers(num, i = 2, factors = []) {
     return  multipliers(num, i + 1, factors);
 }
 
-// 6. Функція, яка повертає число Фібоначчі за переданим порядковим номером
-function fibonacci(n) {
-    if (n <= 2) {
-        return 1;
-    } else {
-        return fibonacci(n - 1) + fibonacci(n - 2);
-    }
+function myMultipliers() {
+    const num = prompt("Введіть число:");
+    const result = multipliers(num);
+    alert("Множники числа: " + result);
 }
