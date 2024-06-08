@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dae2c40d-affe-4bd4-a0da-0cfed7b599e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../js IT Home #17 Мова сценаріїв JavaScript і бібліотека jQuery/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../js IT Home #17 Мова сценаріїв JavaScript і бібліотека jQuery/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../js IT Home #17 Мова сценаріїв JavaScript і бібліотека jQuery/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../js IT Home #18/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../js IT Home #18/.idea/js IT Home #18.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../js IT Home #18/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../js IT Home #18/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../js IT Home #18/img/Panda-figurini-colorizer-Cinema-Black.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../js IT Home #18/img/Panda-figurini-colorizer-Gelato-White.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../js IT Home #18/img/Panda-figurini-colorizer-Italia-Blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../js IT Home #18/img/Panda-figurini-colorizer-Passione-Red.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../js IT Home #17 Мова сценаріїв JavaScript і бібліотека jQuery/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../js IT Home #17 Мова сценаріїв JavaScript і бібліотека jQuery/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../js IT Home #17 Мова сценаріїв JavaScript і бібліотека jQuery/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../js IT Home #17 Мова сценаріїв JavaScript і бібліотека jQuery/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../js IT Home #17 Мова сценаріїв JavaScript і бібліотека jQuery/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/../js IT Home #17 Мова сценаріїв JavaScript і бібліотека jQuery/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,25 +35,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Node.js.script.js.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/alexz/OneDrive/Робочий стіл/js_HomeIT/js IT Home #19 Мова сценаріїв JavaScript і бібліотека jQuery&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files\\JetBrains\\WebStorm2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Node.js.script.js.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/alexz/OneDrive/Робочий стіл/js_HomeIT/js IT Home #20",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "D:\\Program Files\\JetBrains\\WebStorm2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\alexz\OneDrive\Робочий стіл\js_HomeIT\js IT Home #17 Мова сценаріїв JavaScript і бібліотека jQuery\fond" />
@@ -123,6 +110,8 @@
       <workItem from="1715624207926" duration="2992000" />
       <workItem from="1715628217686" duration="9000" />
       <workItem from="1715628233434" duration="19000" />
+      <workItem from="1715794871914" duration="7000" />
+      <workItem from="1715794880040" duration="11000" />
     </task>
     <servers />
   </component>
