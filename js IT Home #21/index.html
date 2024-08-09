@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адаптоване завдання для ПК та мобільних пристроїв</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        #field {
+            background-image: url('img/bool.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            width: 100%;
+            height: 700px;
+            margin-top: 20px;
+        }
+
+        #ball {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background-image: url('img/pngwing.png');
+            background-size: cover;
+            transition: all 0.5s ease;
+        }
+
+        #username {
+            max-width: 300px;
+        }
+
+        /* Адаптація для планшетів */
+        @media (max-width: 1024px) {
+            #field {
+                height: 500px;
+            }
+
+            #ball {
+                width: 80px;
+                height: 80px;
+            }
+
+            #username {
+                max-width: 100%;
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
+
+        /* Адаптація для смартфонів */
+        @media (max-width: 768px) {
+            #field {
+                height: 400px;
+            }
+
+            #ball {
+                width: 50px;
+                height: 50px;
+            }
+
+            #username {
+                max-width: 100%;
+            }
+
+            .container {
+                padding: 10px;
+            }
+        }
+
+        /* Адаптація для дуже маленьких екранів */
+        @media (max-width: 480px) {
+            #field {
+                height: 300px;
+            }
+
+            #ball {
+                width: 40px;
+                height: 40px;
+            }
+
+            #username {
+                max-width: 100%;
+            }
+
+            .container {
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Завдання 1 -->
+        <div class="mb-3">
+            <label for="username" class="form-label">Введіть ім'я:</label>
+            <input type="text" class="form-control" id="username">
+        </div>
+
+        <!-- Завдання 2 -->
+        <button type="button" class="btn btn-primary mb-4" id="openModalBtn">Відкрити модальне вікно</button>
+        
+        <!-- Завдання 3 -->
+        <div id="field">
+            <div id="ball"></div>
+        </div>
+    </div>
+
+    <!-- Модальне вікно -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Модальне вікно</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Це модальне вікно.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Завдання 1: Видалення цифр при введенні імені
+        document.getElementById('username').addEventListener('input', function (event) {
+            this.value = this.value.replace(/\d/g, '');
+        });
+
+        // Завдання 2: Відкриття модального вікна
+        document.getElementById('openModalBtn').addEventListener('click', function () {
+            var myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
+            myModal.show();
+        });
+
+        // Завдання 3: Переміщення м'яча по полю
+        const field = document.getElementById('field');
+        const ball = document.getElementById('ball');
+
+        field.addEventListener('click', function(event) {
+            const fieldRect = field.getBoundingClientRect();
+            const ballSize = ball.offsetWidth;
+
+            let x = event.clientX - fieldRect.left - ballSize / 2;
+            let y = event.clientY - fieldRect.top - ballSize / 2;
+
+            if (x < 0) x = 0;
+            if (y < 0) y = 0;
+            if (x + ballSize > fieldRect.width) x = fieldRect.width - ballSize;
+            if (y + ballSize > fieldRect.height) y = fieldRect.height - ballSize;
+
+            ball.style.left = `${x}px`;
+            ball.style.top = `${y}px`;
+        });
+    </script>
+</body>
+</html>
