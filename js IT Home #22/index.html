@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Underdog&display=swap" rel="stylesheet">
+    <title>Мова сценаріїв JavaScript і бібліотека jQuery # 22</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="tasks-div">
+        <h1>Завдання № 4</h1>
+        <h4>Створіть HTML-сторінку зі світлофором і кнопкою, яка перемикає світлофор на наступний колір.</h4>
+    </div>
+    <div class="container">
+        <div class="traffic-light">
+            <div id="red" class="light red"></div>
+            <div id="yellow" class="light"></div>
+            <div id="green" class="light"></div>
+        </div>
+        <button onclick="changeLight()">NEXT</button>
+    </div>
+    <hr> 
+    <div class="tasks-div">
+        <h1>Завдання № 5</h1>
+        <h4>Створіть HTML-сторінку зі списком книг.
+            <p>При клацанні на книгу колір фону має змінитися на помаранчевий.</p> 
+            Зауважте, що при повторному клацанні на іншу книгу, попередній – необхідно повертати колишній колір.</h4>
+    </div> 
+    <div class="tasks-book">
+    <h1>Список книг</h1></div>
+    <ul id="bookList">
+        <li class="book">"JavaScript for Kids: A Playful Introduction to Programming" by Nick Morgan</li>
+        <li class="book">"Eloquent JavaScript: A Modern Introduction to Programming" by Marin Haversack</li>
+        <li class="book">"JavaScript: The Good Parts" by Douglas Crockford</li>
+        <li class="book">"Programming JavaScript Applications: Robust Web Architecture with Node, HTML5, and Modern JS Libraries" by Eric Elliott</li>
+        <li class="book">"Effective JavaScript: 68 Specific Ways to Harness the Power of JavaScript" by David Herman</li>
+        <li class="book">"JavaScript: The Definitive Guide" by David Flanagan</li>
+        <li class="book">"You Don't Know JS" by Kyle Simpson</li>
+    </ul> 
+    <hr>
+    <div class="tasks-div">
+        <h1>Завдання № 7</h1>
+        <h4>Створіть HTML-сторінку з деревом вкладених директорій.
+            <p>При натисканні на елемент списку, він має згортатися або розгортатися.</p>
+            <p>При наведенні на елемент, шрифт має бути жирним (за допомогою CSS).</p></h4>
+    </div>
+    <ul id="directoryTree" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+        <li>This is PC
+            <ul class="nested">
+                <li>Local Disk (C:)
+                    <ul class="nested">
+                        <li>Program Files</li>
+                        <li>User</li>
+                        <li>Windows</li>
+                    </ul>
+                </li>
+                <li>Local Disk (D:)
+                    <ul class="nested">
+                        <li>New Folder 1</li>
+                        <li>New Folder 2</li>
+                        <li>New Folder 3</li>
+                    </ul>
+                </li>
+                <li>Local Disk (E:)
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr>
+    <div class="tasks-div">
+        <h1>Завдання № 8</h1>
+        <h4>Створіть HTML-сторінку з блоком тексту в рамці.
+            <p>Реалізуйте можливість змінювати розмір блоку, якщо затиснути
+                клавішу мишки в нижньому правому куті та відтягувати її. </p></h4>
+    </div>
+    <div class="resizable">
+        "Я цей блок, курсором хитав" by ShAnDeR
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
