@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Графічний редактор</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap">
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8, #dde1e7);
+            color: #333;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .toolbar {
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        #canvas {
+            position: relative;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            height: calc(80vh);
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .icon-circle, .icon-square, .icon-triangle, .icon-diamond {
+            font-size: 3rem;
+            cursor: pointer;
+            color: #555;
+            transition: transform 0.4s ease, color 0.3s ease;
+        }
+
+        .shape-picker {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .shape-picker i:hover {
+            transform: scale(1.3);
+            color: #1c1c1e;
+        }
+
+        .active {
+            color: #1c1c1e !important;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .shape {
+            position: absolute;
+            cursor: pointer;
+        }
+
+        .circle {
+            border-radius: 50%;
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 50px solid;
+        }
+
+        .diamond {
+            width: 50px;
+            height: 50px;
+            background-color: transparent;
+            transform: rotate(45deg);
+        }
+
+        .color-picker {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-option.selected {
+            border-color: #333;
+            transform: scale(1.2);
+        }
+
+        .shadowed {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .smooth-transition {
+            transition: all 0.4s ease;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .shape-picker {
+                gap: 10px;
+            }
+
+            .icon-circle, .icon-square, .icon-triangle, .icon-diamond {
+                font-size: 2rem;
+            }
+
+            .color-picker {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .color-option {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .toolbar {
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            .shape-picker {
+                gap: 5px;
+            }
+
+            .color-picker {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .icon-circle, .icon-square, .icon-triangle, .icon-diamond {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<div class="container-fluid h-100">
+    <h1>Графічний редактор</h1>
+
+    <div class="toolbar shadowed d-flex justify-content-center mb-3">
+        <div class="d-flex gap-5 align-items-center">
+            <div class="shape-picker smooth-transition">
+                <i class="bi bi-circle-fill icon-circle" data-shape="circle"></i>
+                <i class="bi bi-square-fill icon-square" data-shape="square"></i>
+                <i class="bi bi-triangle-fill icon-triangle" data-shape="triangle"></i>
+                <i class="bi bi-diamond-fill icon-diamond" data-shape="diamond"></i>
+            </div>
+
+            <div class="color-picker">
+                <div class="color-option" style="background-color: #ff4b4b;" data-color="#ff4b4b"></div>
+                <div class="color-option" style="background-color: #4bff4b;" data-color="#4bff4b"></div>
+                <div class="color-option" style="background-color: #4b4bff;" data-color="#4b4bff"></div>
+                <div class="color-option" style="background-color: #ffd54b;" data-color="#ffd54b"></div>
+                <div class="color-option" style="background-color: #ff4bff;" data-color="#ff4bff"></div>
+                <div class="color-option" style="background-color: #4bffff;" data-color="#4bffff"></div>
+                <div class="color-option" style="background-color: #ff904b;" data-color="#ff904b"></div>
+                <div class="color-option" style="background-color: #4b90ff;" data-color="#4b90ff"></div>
+                <div class="color-option" style="background-color: #90ff4b;" data-color="#90ff4b"></div>
+                <div class="color-option" style="background-color: #ff4b90;" data-color="#ff4b90"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="canvas" class="w-100 h-100 shadowed"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let selectedShape = null;
+    let selectedColor = '#ff4b4b';
+    let startX, startY, currentShape, isDrawing = false;
+
+    document.querySelectorAll('.shape-picker i').forEach(icon => {
+        icon.addEventListener('click', function() {
+            document.querySelectorAll('.shape-picker i').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            selectedShape = this.getAttribute('data-shape');
+        });
+    });
+
+    document.querySelectorAll('.color-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+            this.classList.add('selected');
+            selectedColor = this.getAttribute('data-color');
+        });
+    });
+
+    const canvas = document.getElementById('canvas');
+    canvas.addEventListener('mousedown', function(event) {
+        if (!selectedShape) return;
+
+        startX = event.clientX - canvas.offsetLeft;
+        startY = event.clientY - canvas.offsetTop;
+        isDrawing = true;
+
+        currentShape = document.createElement('div');
+        currentShape.classList.add('shape', selectedShape);
+
+        if (selectedShape === 'triangle') {
+            currentShape.style.borderBottomColor = selectedColor;
+        } else if (selectedShape === 'diamond') {
+            currentShape.style.backgroundColor = selectedColor;
+            currentShape.style.transform = 'rotate(45deg)';
+        } else {
+            currentShape.style.backgroundColor = selectedColor;
+        }
+
+        currentShape.style.left = `${startX}px`;
+        currentShape.style.top = `${startY}px`;
+        currentShape.style.width = '0px';
+        currentShape.style.height = '0px';
+
+        canvas.appendChild(currentShape);
+    });
+
+    canvas.addEventListener('mousemove', function(event) {
+        if (!isDrawing) return;
+
+        const endX = event.clientX - canvas.offsetLeft;
+        const endY = event.clientY - canvas.offsetTop;
+
+        const width = Math.abs(endX - startX);
+        const height = Math.abs(endY - startY);
+
+        if (selectedShape === 'triangle') {
+            currentShape.style.borderLeftWidth = `${width / 2}px`;
+            currentShape.style.borderRightWidth = `${width / 2}px`;
+            currentShape.style.borderBottomWidth = `${height}px`;
+        } else {
+            currentShape.style.width = `${width}px`;
+            currentShape.style.height = `${height}px`;
+        }
+
+        if (endX < startX) {
+            currentShape.style.left = `${endX}px`;
+        }
+        if (endY < startY) {
+            currentShape.style.top = `${endY}px`;
+        }
+    });
+
+    canvas.addEventListener('mouseup', function() {
+        isDrawing = false;
+    });
+</script>
+</body>
+</html>
