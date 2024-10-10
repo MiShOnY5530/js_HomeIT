@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Таймер зворотного відліку</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .timer {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 5rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer">
+    <h1 id="countdown">10</h1>
+  </div>
+
+  <script>
+    function startCountdown(seconds, callback) {
+      let timeRemaining = seconds;
+      const countdownElement = document.getElementById('countdown');
+
+      const intervalId = setInterval(() => {
+        countdownElement.textContent = timeRemaining;
+        timeRemaining--;
+
+        if (timeRemaining < 0) {
+          clearInterval(intervalId); 
+          callback(); 
+        }
+      }, 1000);
+    }
+
+    function timerFinished() {
+      console.log('Таймер завершено!');
+    }
+
+    startCountdown(10, timerFinished);
+  </script>
+</body>
+</html>

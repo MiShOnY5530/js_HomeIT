@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ланцюжок промісів</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ланцюжок промісів</h1>
+    <script>
+        function delayedIncrement(value) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(value + 1);
+                }, 1000);
+            });
+        }
+
+        async function chainPromises() {
+            let result = 0;
+
+            for (let i = 0; i < 5; i++) {
+                result = await delayedIncrement(result);
+                console.log(result);
+            }
+        }
+
+        chainPromises();
+    </script>
+</body>
+</html>

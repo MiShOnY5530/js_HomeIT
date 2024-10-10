@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Масив процесів</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; 
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #333;
+        }
+    </style>
+    <script>
+        function processArray(array, callback) {
+            const resultArray = [];
+            
+            for (let i = 0; i < array.length; i++) {
+                const modifiedElement = callback(array[i]);
+                resultArray.push(modifiedElement);
+            }
+            
+            return resultArray;
+        }
+
+        function double(num) {
+            return num * 2;
+        }
+
+        const numbers = [1, 2, 3, 4, 5];
+        const processedNumbers = processArray(numbers, double);
+
+        console.log(processedNumbers);
+    </script>
+</head>
+<body>
+    <h1>Задача #3</h1>
+</body>
+</html>

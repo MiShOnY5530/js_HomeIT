@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Асинхронне виконання промісів</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #results {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Асинхронне виконання промісів</h1>
+    <button id="fetchData">Отримати дані</button>
+    <div id="results"></div>
+
+    <script>
+        const fetchData1 = () => new Promise(resolve => {
+            setTimeout(() => resolve('Дані з джерела 1'), 1000);
+        });
+
+        const fetchData2 = () => new Promise(resolve => {
+            setTimeout(() => resolve('Дані з джерела 2'), 2000);
+        });
+
+        const fetchData3 = () => new Promise(resolve => {
+            setTimeout(() => resolve('Дані з джерела 3'), 1500);
+        });
+
+        const fetchAllData = async (fetchFunctions) => {
+            const results = await Promise.all(fetchFunctions.map(fn => fn()));
+            return results;
+        };
+
+        document.getElementById('fetchData').addEventListener('click', async () => {
+            const fetchFunctions = [fetchData1, fetchData2, fetchData3];
+            const results = await fetchAllData(fetchFunctions);
+            
+            document.getElementById('results').innerHTML = results.join('<br>');
+        });
+    </script>
+</body>
+</html>

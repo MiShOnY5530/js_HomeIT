@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Асинхронне завантаження даних</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #result {
+            margin-top: 20px;
+            width: 300px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container text-center">
+    <h1 class="mb-4">Завантаження даних</h1>
+    <button id="loadButton" class="btn btn-primary btn-lg">Завантажити дані</button>
+    <div id="result" class="alert" role="alert"></div>
+</div>
+
+<script>
+    function loadData() {
+        return new Promise((resolve, reject) => {
+            const success = Math.random() < 0.5; 
+            setTimeout(() => {
+                if (success) {
+                    resolve("Дані успішно отримані!");
+                } else {
+                    reject("Не вдалося отримати дані");
+                }
+            }, 2000);
+        });
+    }
+
+    document.getElementById('loadButton').addEventListener('click', () => {
+        loadData()
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                resultDiv.textContent = data;
+                resultDiv.classList.remove('alert-danger');
+                resultDiv.classList.add('alert-success');
+                resultDiv.style.display = 'block';
+            })
+            .catch(error => {
+                const resultDiv = document.getElementById('result');
+                resultDiv.textContent = error;
+                resultDiv.classList.remove('alert-success');
+                resultDiv.classList.add('alert-danger');
+                resultDiv.style.display = 'block';
+            });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+    

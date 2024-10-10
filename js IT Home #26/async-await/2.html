@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Асинхронні запити</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Асинхронні запити</h1>
+    <button id="processButton">Обробити дані</button>
+    <div id="result"></div>
+
+    <script>
+        const incrementAsync = (num) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(num + 1);
+                }, 100);
+            });
+        };
+
+        async function processData(arr) {
+            const result = [];
+            for (const num of arr) {
+                const incrementedValue = await incrementAsync(num);
+                result.push(incrementedValue);
+            }
+            return result;
+        }
+
+        document.getElementById('processButton').addEventListener('click', async () => {
+            const inputArray = [1, 2, 3, 4, 5]; 
+            const processedArray = await processData(inputArray);
+            document.getElementById('result').innerText = `Оброблені дані: ${processedArray.join(', ')}`;
+        });
+    </script>
+</body>
+</html>
