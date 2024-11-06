@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доступ до Захищеного Ресурсу</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .alert {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Захищений Ресурс</h1>
+    <div class="alert alert-danger" id="errorAlert">Неправильні облікові дані!</div>
+    <div class="alert alert-success" id="successAlert">Доступ надано до захищеного ресурсу!</div>
+    <form id="authForm">
+        <div class="mb-3">
+            <label for="username" class="form-label">Ім'я користувача</label>
+            <input type="text" class="form-control" id="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Увійти</button>
+    </form>
+    <div id="resource" class="mt-4" style="display:none;">
+        <h3>Захищений Контент</h3>
+        <p>Це закритий контент, до якого ви отримали доступ</p>
+    </div>
+</div>
+
+<script>
+    class Subject {
+        request() {
+            throw new Error("Метод 'request' не реалізовано");
+        }
+    }
+
+    class RealSubject extends Subject {
+        request() {
+            return "Це захищений ресурс!";
+        }
+    }
+
+    class Proxy extends Subject {
+        constructor(realSubject) {
+            super();
+            this.realSubject = realSubject;
+            this.userRole = null;
+        }
+
+        authenticate(username, password) {
+            // Спрощена система автентифікації
+            if (username === "admin" && password === "admin123") {
+                this.userRole = "admin";
+                return true;
+            } else if (username === "editor" && password === "editor123") {
+                this.userRole = "editor";
+                return true;
+            } else if (username === "viewer" && password === "viewer123") {
+                this.userRole = "viewer";
+                return true;
+            }
+            return false;
+        }
+
+        request() {
+            if (this.userRole) {
+                console.log(`Доступ для ролі: ${this.userRole}`);
+                return this.realSubject.request();
+            } else {
+                throw new Error("Неавторизований доступ");
+            }
+        }
+    }
+
+    const realSubject = new RealSubject();
+    const proxy = new Proxy(realSubject);
+
+    document.getElementById("authForm").onsubmit = function (event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        if (proxy.authenticate(username, password)) {
+            document.getElementById("errorAlert").style.display = "none";
+            document.getElementById("successAlert").style.display = "block";
+            document.getElementById("resource").style.display = "block";
+            console.log(proxy.request());
+        } else {
+            document.getElementById("successAlert").style.display = "none";
+            document.getElementById("errorAlert").style.display = "block";
+        }
+    };
+</script>
+</body>
+</html>

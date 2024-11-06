@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>**OBSERVER**</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .back-button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .card-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .user-status {
+            width: 250px;
+            height: 150px;
+            background: linear-gradient(135deg, #ffffff, #f9f9f9);
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .user-status:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .user-status span {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .online {
+            color: #28a745;
+        }
+
+        .offline {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<button class="back-button" onclick="window.history.back()">Назад</button>
+
+<h1>Статуси користувачів</h1>
+
+<div class="card-row">
+    <div class="user-status">
+        <span id="bobStatus" class="offline">Bob: offline</span>
+        <button onclick="changeBobStatus()">Змінити статус</button>
+    </div>
+
+    <div class="user-status">
+        <span id="charlieStatus" class="offline">Charlie: offline</span>
+        <button onclick="changeCharlieStatus()">Змінити статус</button>
+    </div>
+</div>
+
+<script>
+    class User {
+        constructor(name) {
+            this.name = name;
+            this.status = 'offline';
+            this.subscribers = [];
+        }
+
+        subscribe(observer) {
+            this.subscribers.push(observer);
+        }
+
+        unsubscribe(observer) {
+            this.subscribers = this.subscribers.filter(sub => sub !== observer);
+        }
+
+        notify() {
+            this.subscribers.forEach(observer => observer.update(this));
+        }
+
+        setStatus(newStatus) {
+            this.status = newStatus;
+            console.log(`User ${this.name} has changed status to: ${this.status}`);
+            this.notify();
+        }
+    }
+
+    class NotificationService {
+        constructor(serviceName) {
+            this.serviceName = serviceName;
+        }
+
+        update(user) {
+            console.log(`${this.serviceName} отримав сповіщення: ${user.name} тепер ${user.status}`);
+        }
+    }
+
+    const userBob = new User('Bob');
+    const userCharlie = new User('Charlie');
+
+    const emailService = new NotificationService('EmailService');
+    const smsService = new NotificationService('SMSService');
+
+    userBob.subscribe(emailService);
+    userCharlie.subscribe(smsService);
+
+    function changeBobStatus() {
+        const newStatus = userBob.status === 'online' ? 'offline' : 'online';
+        userBob.setStatus(newStatus);
+
+        const statusElement = document.getElementById('bobStatus');
+        statusElement.textContent = `Bob: ${newStatus}`;
+        statusElement.className = newStatus;
+    }
+
+    function changeCharlieStatus() {
+        const newStatus = userCharlie.status === 'online' ? 'offline' : 'online';
+        userCharlie.setStatus(newStatus);
+
+        const statusElement = document.getElementById('charlieStatus');
+        statusElement.textContent = `Charlie: ${newStatus}`;
+        statusElement.className = newStatus;
+    }
+</script>
+</body>
+</html>

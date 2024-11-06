@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Багаторівневе Меню</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .menu {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .menu-item {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Багаторівневе Меню</h1>
+<div class="container">
+    <h3>Структура Меню</h3>
+    <ul id="menu" class="menu"></ul>
+    <button class="btn btn-primary mt-3" onclick="addMenuItem()">Додати елемент меню</button>
+    <button class="btn btn-danger mt-3" onclick="removeMenuItem()">Видалити останній елемент меню</button>
+</div>
+
+<script>
+    class MenuComponent {
+        add(menuComponent) {
+            throw new Error("Метод 'add' не реалізовано");
+        }
+        remove(menuComponent) {
+            throw new Error("Метод 'remove' не реалізовано");
+        }
+        display() {
+            throw new Error("Метод 'display' не реалізовано");
+        }
+    }
+
+    class MenuItem extends MenuComponent {
+        constructor(name) {
+            super();
+            this.name = name;
+        }
+
+        display() {
+            const li = document.createElement('li');
+            li.className = 'menu-item';
+            li.innerText = this.name;
+            return li;
+        }
+    }
+
+    class SubMenu extends MenuComponent {
+        constructor(name) {
+            super();
+            this.name = name;
+            this.children = [];
+        }
+
+        add(menuComponent) {
+            this.children.push(menuComponent);
+        }
+
+        remove(menuComponent) {
+            const index = this.children.indexOf(menuComponent);
+            if (index > -1) {
+                this.children.splice(index, 1);
+            }
+        }
+
+        display() {
+            const li = document.createElement('li');
+            li.className = 'menu-item';
+            li.innerText = this.name;
+
+            const ul = document.createElement('ul');
+            this.children.forEach(child => {
+                ul.appendChild(child.display());
+            });
+
+            li.appendChild(ul);
+            return li;
+        }
+    }
+
+    const rootMenu = new SubMenu("Головне Меню");
+    const submenu1 = new SubMenu("Підменю 1");
+    const submenu2 = new SubMenu("Підменю 2");
+
+    submenu1.add(new MenuItem("Елемент 1.1"));
+    submenu1.add(new MenuItem("Елемент 1.2"));
+    submenu2.add(new MenuItem("Елемент 2.1"));
+    submenu2.add(new MenuItem("Елемент 2.2"));
+
+    rootMenu.add(submenu1);
+    rootMenu.add(submenu2);
+    rootMenu.add(new MenuItem("Елемент 3"));
+
+    function renderMenu() {
+        const menuElement = document.getElementById("menu");
+        menuElement.innerHTML = "";
+        menuElement.appendChild(rootMenu.display());
+    }
+
+    function addMenuItem() {
+        const newItemName = prompt("Введіть ім'я нового елемента меню:");
+        if (newItemName) {
+            rootMenu.add(new MenuItem(newItemName));
+            renderMenu();
+        }
+    }
+
+    function removeMenuItem() {
+        if (rootMenu.children.length > 0) {
+            rootMenu.remove(rootMenu.children[rootMenu.children.length - 1]);
+            renderMenu();
+        } else {
+            alert("Немає елементів для видалення.");
+        }
+    }
+
+    renderMenu();
+</script>
+</body>
+</html>

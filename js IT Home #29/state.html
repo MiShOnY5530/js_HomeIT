@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сучасний медіаплеєр</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #333;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .player-container {
+            width: 400px;
+            background: linear-gradient(135deg, #ffffff, #f9f9f9);
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            transition: transform 0.4s, box-shadow 0.4s, background-color 0.4s;
+            overflow: hidden;
+        }
+
+        .player-container:hover {
+            transform: scale(1.05);
+            background-color: #f0faff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+            margin: 10px 0;
+            width: 100px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .status {
+            font-size: 0.95rem;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        #back-link {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        #back-link:hover {
+            color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .player-container {
+                width: 300px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container text-center">
+    <h1>Сучасний медіаплеєр</h1>
+    <div class="player-container">
+        <audio id="audioPlayer" src="4/khayat-pobyeda-trans-ost-ya-pobyeda-berln.mp3"></audio>
+
+        <div class="controls">
+            <button id="playBtn">Play</button>
+            <button id="pauseBtn" disabled>Pause</button>
+            <button id="stopBtn" disabled>Stop</button>
+        </div>
+        <div id="status" class="status">Поточний стан: Зупинено</div>
+    </div>
+
+    <a id="back-link" href="index.html">Повернення на головну</a>
+</div>
+<script>
+    class State {
+        play(player) {
+            throw new Error("Метод play() має бути реалізований.");
+        }
+
+        pause(player) {
+            throw new Error("Метод pause() має бути реалізований.");
+        }
+
+        stop(player) {
+            throw new Error("Метод stop() має бути реалізований.");
+        }
+    }
+
+    class PlayingState extends State {
+        play(player) {
+            console.log("Носій вже відтворюється.");
+        }
+
+        pause(player) {
+            console.log("Призупинення відтворення носія.");
+            player.setState(new PausedState());
+            player.audio.pause();
+            updateStatus("Призупинено");
+        }
+
+        stop(player) {
+            console.log("Зупинка носія.");
+            player.setState(new StoppedState());
+            player.audio.pause();
+            player.audio.currentTime = 0;
+            updateStatus("Зупинено");
+        }
+    }
+
+    class PausedState extends State {
+        play(player) {
+            console.log("Відновлення відтворення носія.");
+            player.setState(new PlayingState());
+            player.audio.play();
+            updateStatus("Відтворення");
+        }
+
+        pause(player) {
+            console.log("Носій вже призупинений.");
+        }
+
+        stop(player) {
+            console.log("Зупинка носія.");
+            player.setState(new StoppedState());
+            player.audio.pause();
+            player.audio.currentTime = 0;
+            updateStatus("Зупинено");
+        }
+    }
+
+    class StoppedState extends State {
+        play(player) {
+            console.log("Початок відтворення носія.");
+            player.setState(new PlayingState());
+            player.audio.play();
+            updateStatus("Відтворення");
+        }
+
+        pause(player) {
+            console.log("Призупинити не вдається, носій зупинено.");
+        }
+
+        stop(player) {
+            console.log("Носій вже зупинено.");
+        }
+    }
+
+    class MediaPlayer {
+        constructor(audio) {
+            this.audio = audio;
+            this.state = new StoppedState();
+        }
+
+        setState(state) {
+            this.state = state;
+            this.updateControls();
+        }
+
+        play() {
+            this.state.play(this);
+        }
+
+        pause() {
+            this.state.pause(this);
+        }
+
+        stop() {
+            this.state.stop(this);
+        }
+
+        updateControls() {
+            if (this.state instanceof PlayingState) {
+                document.getElementById("playBtn").disabled = true;
+                document.getElementById("pauseBtn").disabled = false;
+                document.getElementById("stopBtn").disabled = false;
+            } else if (this.state instanceof PausedState) {
+                document.getElementById("playBtn").disabled = false;
+                document.getElementById("pauseBtn").disabled = true;
+                document.getElementById("stopBtn").disabled = false;
+            } else if (this.state instanceof StoppedState) {
+                document.getElementById("playBtn").disabled = false;
+                document.getElementById("pauseBtn").disabled = true;
+                document.getElementById("stopBtn").disabled = true;
+            }
+        }
+    }
+
+    function updateStatus(status) {
+        document.getElementById("status").innerText = `Поточний стан: ${status}`;
+    }
+
+    const audioElement = document.getElementById("audioPlayer");
+    const player = new MediaPlayer(audioElement);
+
+    document.getElementById("playBtn").addEventListener("click", () => player.play());
+    document.getElementById("pauseBtn").addEventListener("click", () => player.pause());
+    document.getElementById("stopBtn").addEventListener("click", () => player.stop());
+
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра Пам'ять</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="controls">
+    <label>Розмір поля:
+        <select id="gridSize">
+            <option value="4">4x4</option>
+            <option value="6">6x6</option>
+            <option value="8">8x8</option>
+        </select>
+    </label>
+    <button onclick="startGame()">Почати гру</button>
+    <label>Тема:
+        <select id="theme">
+            <option value="light">Світла</option>
+            <option value="dark">Темна</option>
+        </select>
+    </label>
+    <div id="stats">
+        <p>Час: <span id="time">0</span> сек</p>
+        <p>Переворотів: <span id="flips">0</span></p>
+    </div>
+</div>
+<div id="gameBoard"></div>
+
+<audio id="matchSound" src="match.wav"></audio>
+<audio id="mismatchSound" src="mismatch.wav"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>

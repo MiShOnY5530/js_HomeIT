@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyString Tests</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.4/chai.min.js"></script>
+</head>
+<body>
+
+<div id="mocha"></div>
+
+<script>
+    mocha.setup("bdd");
+    const { expect } = chai;
+
+    class MyString {
+        constructor(str) {
+            this.str = str;
+        }
+
+        remove(index) {
+            if (index < 0 || index >= this.str.length) return this.str;
+            return this.str.slice(0, index) + this.str.slice(index + 1);
+        }
+
+        insert(index, sign) {
+            if (index < 0) return sign + this.str;
+            if (index >= this.str.length) return this.str + sign;
+            return this.str.slice(0, index) + sign + this.str.slice(index);
+        }
+
+        trimSign() {
+            return this.str.replace(/(.)\1+/g, "$1");
+        }
+
+        toggle() {
+            return this.str
+                .split("")
+                .map(char =>
+                    char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+                )
+                .join("");
+        }
+
+        counter(sign) {
+            return [...this.str].filter(char => char === sign).length;
+        }
+    }
+
+    describe("MyString", function () {
+        describe("remove()", function () {
+            it("повинно видалити символ за індексом 0", function () {
+                const myStr = new MyString("qwerty");
+                expect(myStr.remove(0)).to.equal("werty");
+            });
+
+            it("повинно видалити символ за індексом 2", function () {
+                const myStr = new MyString("qwerty");
+                expect(myStr.remove(2)).to.equal("qwrty");
+            });
+
+            it("не повинно видаляти символ, якщо індекс виходить за межі рядка", function () {
+                const myStr = new MyString("qwerty");
+                expect(myStr.remove(10)).to.equal("qwerty");
+                expect(myStr.remove(-4)).to.equal("qwerty");
+            });
+        });
+
+        describe("insert()", function () {
+            it("повинно вставити символ за індексом 0", function () {
+                const myStr = new MyString("qwerty");
+                expect(myStr.insert(0, "X")).to.equal("Xwerty");
+            });
+
+            it("повинно вставити символ за індексом 2", function () {
+                const myStr = new MyString("qwerty");
+                expect(myStr.insert(2, "X")).to.equal("qwXrty");
+            });
+
+            it("повинно вставити символ в кінець, якщо індекс виходить за межі рядка", function () {
+                const myStr = new MyString("qwerty");
+                expect(myStr.insert(10, "X")).to.equal("qwertyX");
+            });
+
+            it("повинно вставити символ на початок, якщо індекс від'ємний", function () {
+                const myStr = new MyString("qwerty");
+                expect(myStr.insert(-4, "X")).to.equal("Xqwerty");
+            });
+        });
+
+        describe("trimSign()", function () {
+            it("повинно залишити унікальні символи без змін", function () {
+                const myStr = new MyString("qwerty");
+                expect(myStr.trimSign()).to.equal("qwerty");
+            });
+
+            it("повинно видалити повторювані символи, залишивши один", function () {
+                expect(new MyString("qweeeerty").trimSign()).to.equal("qwerty");
+                expect(new MyString("qweeertttty").trimSign()).to.equal("qwerty");
+                expect(new MyString("qwe....rty").trimSign()).to.equal("qwe.rty");
+            });
+        });
+
+        describe("toggle()", function () {
+            it("повинно змінити регістр букв: великі на маленькі та навпаки", function () {
+                expect(new MyString("qwerty").toggle()).to.equal("QWERTY");
+                expect(new MyString("QWERTY").toggle()).to.equal("qwerty");
+                expect(new MyString("qweRTY").toggle()).to.equal("QWErty");
+            });
+        });
+
+        describe("counter()", function () {
+            it("повинно підрахувати кількість вказаного символу в рядку", function () {
+                expect(new MyString("qwerty").counter("e")).to.equal(1);
+                expect(new MyString("apple").counter("p")).to.equal(2);
+                expect(new MyString("avokado").counter("a")).to.equal(2);
+            });
+        });
+    });
+
+    mocha.run();
+</script>
+</body>
+</html>

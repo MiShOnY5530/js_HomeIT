@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список завдань (To-Do List)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 130vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .todo-container {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        button, .remove-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        button:hover, .remove-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .remove-btn {
+            background-color: #ff4d4d;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        li {
+            background: linear-gradient(135deg, #ffffff, #f9f9f9);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+            background-color: #f0faff;
+        }
+
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .iterator-output {
+            margin-top: 20px;
+            font-style: italic;
+            color: #444;
+            white-space: pre-wrap;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="todo-container">
+    <h1>Список завдань</h1>
+
+    <input type="text" id="taskInput" placeholder="Нове завдання">
+    <button id="addTaskBtn">Додати завдання</button>
+
+    <ul id="taskList"></ul>
+
+    <button id="showIteratorBtn" style="background-color: #764ba2;">Показати всі завдання</button>
+    <div id="iteratorOutput" class="iterator-output"></div>
+</div>
+
+<script>
+    class Task {
+        constructor(title) {
+            this.title = title;
+            this.completed = false;
+        }
+
+        toggleComplete() {
+            this.completed = !this.completed;
+        }
+    }
+
+    class TaskList {
+        constructor() {
+            this.tasks = [];
+        }
+
+        addTask(task) {
+            this.tasks.push(task);
+        }
+
+        removeTask(index) {
+            this.tasks.splice(index, 1);
+        }
+
+        createIterator() {
+            return new TaskIterator(this.tasks);
+        }
+    }
+
+    class TaskIterator {
+        constructor(tasks) {
+            this.tasks = tasks;
+            this.index = 0;
+        }
+
+        hasNext() {
+            return this.index < this.tasks.length;
+        }
+
+        next() {
+            return this.tasks[this.index++];
+        }
+    }
+
+    const taskList = new TaskList();
+    const taskInput = document.getElementById('taskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskListElement = document.getElementById('taskList');
+    const showIteratorBtn = document.getElementById('showIteratorBtn');
+    const iteratorOutput = document.getElementById('iteratorOutput');
+
+    addTaskBtn.addEventListener('click', () => {
+        const taskTitle = taskInput.value.trim();
+        if (taskTitle === '') return;
+
+        const newTask = new Task(taskTitle);
+        taskList.addTask(newTask);
+        renderTaskList();
+        taskInput.value = '';
+    });
+
+    function renderTaskList() {
+        taskListElement.innerHTML = '';
+        taskList.tasks.forEach((task, index) => {
+            const li = document.createElement('li');
+            li.className = task.completed ? 'completed' : '';
+            li.innerHTML = `
+                <span>${task.title}</span>
+                <button class="remove-btn" onclick="removeTask(${index})">x</button>
+            `;
+            li.addEventListener('click', () => toggleTaskComplete(index));
+            taskListElement.appendChild(li);
+        });
+    }
+
+    window.removeTask = function (index) {
+        taskList.removeTask(index);
+        renderTaskList();
+    }
+
+    function toggleTaskComplete(index) {
+        taskList.tasks[index].toggleComplete();
+        renderTaskList();
+    }
+
+    showIteratorBtn.addEventListener('click', () => {
+        const iterator = taskList.createIterator();
+        let result = '';
+        while (iterator.hasNext()) {
+            const task = iterator.next();
+            const completedMark = task.completed ? '[✓]' : '[✗]';
+            result += `${task.title} ${completedMark}\n`;
+        }
+        iteratorOutput.textContent = result;
+    });
+</script>
+</body>
+</html>

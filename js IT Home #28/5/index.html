@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Текстовий Декоратор</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+<h1>Текстовий Декоратор</h1>
+<div class="container">
+    <div class="mb-3">
+        <textarea id="inputText" class="form-control" rows="3" placeholder="Введіть текст..."></textarea>
+    </div>
+    <div>
+        <label><input type="checkbox" id="bold">Жирний</label>
+        <label><input type="checkbox" id="italic">Курсив</label>
+        <label><input type="checkbox" id="underline">Підкреслення</label>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary" onclick="applyStyles()">Застосувати стилі</button>
+    </div>
+    <h3>Результат:</h3>
+    <div id="output" class="output"></div>
+</div>
+
+<script>
+    class TextComponent {
+        getText() {
+            return "";
+        }
+    }
+
+    class SimpleText extends TextComponent {
+        constructor(text) {
+            super();
+            this.text = text;
+        }
+
+        getText() {
+            return this.text;
+        }
+    }
+
+    class TextDecorator extends TextComponent {
+        constructor(textComponent) {
+            super();
+            this.textComponent = textComponent;
+        }
+
+        getText() {
+            return this.textComponent.getText();
+        }
+    }
+
+    class BoldDecorator extends TextDecorator {
+        getText() {
+            return `<strong>${super.getText()}</strong>`;
+        }
+    }
+
+    class ItalicDecorator extends TextDecorator {
+        getText() {
+            return `<em>${super.getText()}</em>`;
+        }
+    }
+
+    class UnderlineDecorator extends TextDecorator {
+        getText() {
+            return `<u>${super.getText()}</u>`;
+        }
+    }
+
+    function applyStyles() {
+        const inputText = document.getElementById('inputText').value;
+        let textComponent = new SimpleText(inputText);
+
+        if (document.getElementById('bold').checked) {
+            textComponent = new BoldDecorator(textComponent);
+        }
+        if (document.getElementById('italic').checked) {
+            textComponent = new ItalicDecorator(textComponent);
+        }
+        if (document.getElementById('underline').checked) {
+            textComponent = new UnderlineDecorator(textComponent);
+        }
+
+        document.getElementById('output').innerHTML = textComponent.getText();
+    }
+</script>
+</body>
+</html>

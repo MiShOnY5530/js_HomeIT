@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата на E-commerce сайті</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .card-custom {
+            width: 100%;
+            background: linear-gradient(135deg, #ffffff, #f9f9f9);
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .card-custom:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: #777;
+            margin: 15px 0;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+        }
+
+        #checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #checkout-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #payment-result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+            color: #28a745;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            #checkout-btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Кошик покупок</h1>
+    <div class="card-custom">
+        <h2>Ноутбук - $1050</h2>
+    </div>
+    <h2>Оберіть метод оплати</h2>
+    <select id="payment-method">
+        <option value="creditCard">Кредитна картка</option>
+        <option value="paypal">PayPal</option>
+        <option value="crypto">Криптовалюта</option>
+    </select>
+    <input type="text" id="payment-info" placeholder="Введіть платіжні дані">
+    <button id="checkout-btn">Підтвердити оплату</button>
+    <div id="payment-result"></div>
+    <div class="error" id="error-message"></div>
+    <a id="back-link" href="index.html">Повернення на головну</a>
+</div>
+
+<script>
+    class PaymentStrategy {
+        pay(amount) {
+            throw new Error("Метод pay() має бути реалізований.");
+        }
+    }
+
+    class CreditCardPayment extends PaymentStrategy {
+        constructor(cardNumber) {
+            super();
+            this.cardNumber = cardNumber;
+        }
+
+        pay(amount) {
+            console.log(`Оплата ${amount} за допомогою кредитної картки: ${this.cardNumber}`);
+        }
+    }
+
+    class PayPalPayment extends PaymentStrategy {
+        constructor(email) {
+            super();
+            this.email = email;
+        }
+
+        pay(amount) {
+            console.log(`Оплата ${amount} через PayPal: ${this.email}`);
+        }
+    }
+
+    class CryptoPayment extends PaymentStrategy {
+        constructor(walletAddress) {
+            super();
+            this.walletAddress = walletAddress;
+        }
+
+        pay(amount) {
+            console.log(`Оплата ${amount} за допомогою криптовалюти: ${this.walletAddress}`);
+        }
+    }
+
+    class ShoppingCart {
+        constructor() {
+            this.items = [];
+            this.paymentStrategy = null;
+        }
+
+        addItem(item) {
+            this.items.push(item);
+        }
+
+        setPaymentStrategy(strategy) {
+            this.paymentStrategy = strategy;
+        }
+
+        checkout() {
+            const total = this.items.reduce((sum, item) => sum + item.price, 0);
+            if (this.paymentStrategy) {
+                this.paymentStrategy.pay(total);
+            } else {
+                console.log("Не обрано спосіб оплати.");
+            }
+        }
+    }
+
+    function validatePaymentInfo(paymentMethod, paymentInfo) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const cardPattern = /^\d{16}$/;
+
+        if (paymentMethod === "creditCard") {
+            if (!cardPattern.test(paymentInfo)) {
+                return "Номер картки має складатися з 16 цифр.";
+            }
+        } else if (paymentMethod === "paypal") {
+            if (!emailPattern.test(paymentInfo)) {
+                return "Невірний формат електронної пошти.";
+            }
+        } else if (paymentMethod === "crypto") {
+            if (paymentInfo.length < 25) {
+                return "Адреса гаманця має містити щонайменше 25 символів.";
+            }
+        }
+
+        return "";
+    }
+
+    document.getElementById("checkout-btn").addEventListener("click", function() {
+        const paymentMethod = document.getElementById("payment-method").value;
+        const paymentInfo = document.getElementById("payment-info").value;
+        const errorMessageElement = document.getElementById("error-message");
+
+        const validationMessage = validatePaymentInfo(paymentMethod, paymentInfo);
+        if (validationMessage) {
+            errorMessageElement.textContent = validationMessage;
+            return;
+        } else {
+            errorMessageElement.textContent = "";
+        }
+
+        const cart = new ShoppingCart();
+        cart.addItem({ name: "Ноутбук", price: 1050 });
+
+        let strategy;
+
+        switch (paymentMethod) {
+            case "creditCard":
+                strategy = new CreditCardPayment(paymentInfo);
+                break;
+            case "paypal":
+                strategy = new PayPalPayment(paymentInfo);
+                break;
+            case "crypto":
+                strategy = new CryptoPayment(paymentInfo);
+                break;
+            default:
+                console.log("Невідомий спосіб оплати.");
+                return;
+        }
+
+        cart.setPaymentStrategy(strategy);
+        cart.checkout();
+
+        document.getElementById("payment-result").textContent = `Оплата успішна за допомогою ${paymentMethod}.`;
+    });
+</script>
+</body>
+</html>
